@@ -34,8 +34,12 @@ Route::get('channels', 'ChannelController@channels');
 Route::get('getChannelUsers', 'ChannelController@getUsers');
 Route::get('createChannel', 'ChannelController@createChannel');
 Route::post('createChannel', 'ChannelController@createChannel');
-Route::view('newChannel', 'createchannel');
-Route::view('joinChannel', 'joinchannel');
+Route::view('newChannel', 'ChannelController@createChannel');
+Route::view('joinChannel', 'ChannelController@joinChannel');
 
 
-Route::view('newTag', 'createtag');
+Route::view('newtag', 'createtag');
+Route::get('createTag', 'TagController@createTag');
+Route::post('createTag', 'TagController@createTag');
+
+

@@ -37,11 +37,13 @@ class TagController extends Controller
         /** @var Channel $channel */
         $channel = Channel::find($channelId);
 
+        die();
+
         if (0 === $tag->count()) {
             $tag = new Tag();
             $tag->name = $tagName;
             $tag->users()->save($tag);
-            $tag->channels()->save($channel);
+            //$tag->channels()->save($channel);
         }
     }
 }
