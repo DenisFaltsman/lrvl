@@ -38,8 +38,7 @@ Route::view('newChannel', 'ChannelController@createChannel');
 Route::view('joinChannel', 'ChannelController@joinChannel');
 
 
-Route::view('newtag', 'createtag');
+
 Route::get('createTag', 'TagController@createTag');
-Route::post('createTag', 'TagController@createTag');
-
-
+Route::get('createTagAction', 'TagController@createTagAction');
+Route::post('createTagAction', 'TagController@createTagAction');

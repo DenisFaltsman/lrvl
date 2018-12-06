@@ -15,10 +15,30 @@ use Illuminate\Support\Facades\Auth;
 class TagController extends Controller
 {
     /**
+     * TagController constructor.
+     */
+    public function __construct()
+    {
+        // А можно было и через роуты
+        $this->middleware('auth');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function createTag(Request $request)
+    {
+        $channels = Channel::all();
+
+        return view('createtag', ['channels' => $channels]);
+    }
+
+    /**
      * @param Request $request
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function createTag(Request $request)
+    public function createTagAction(Request $request)
     {
         $this->validate($request, [
             'name' => 'string|required',
@@ -26,6 +46,10 @@ class TagController extends Controller
         ]);
         $tagName =   $request->name;
         $channelId = $request->channel_id;
+
+        echo 'tagName' . $tagName . ' Channel Id ' . $channelId;
+        exit;
+
         $userId =    Auth::id();
 
         /** @var Tag $tag */
@@ -37,13 +61,12 @@ class TagController extends Controller
         /** @var Channel $channel */
         $channel = Channel::find($channelId);
 
-        die();
 
         if (0 === $tag->count()) {
             $tag = new Tag();
             $tag->name = $tagName;
             $tag->users()->save($tag);
-            //$tag->channels()->save($channel);
+            $tag->channels()->save($channel);
         }
     }
 }

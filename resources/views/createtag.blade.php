@@ -9,11 +9,17 @@
                     @include('menu')
                     <h6>Creating tag</h6>
 
-                    <form method="POST" action="/createTag">
+                    <form method="POST" action="/createTagAction">
                         {{csrf_field()}}
-                        <input type="text" value="channel_id"  id="channel_id" name="channel_id" >
-                        <input type="text" value="name"  id="name" name="name" >
-                        <input type="submit" class="btn" value="Create"/>
+                        <select name="channel_id" id="channel_id">
+                            @foreach($channels as $channel)
+                                <option value="{{ $channel['id'] }}">
+                                    {{ $channel['name'] }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="text" value="tag"  id="name" name="name" >
+                        <input type="submit" class="btn" value="Create Tag"/>
                     </form>
                 </div>
             </div>
