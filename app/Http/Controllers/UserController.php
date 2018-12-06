@@ -78,8 +78,21 @@ class UserController extends Controller
         ]);
 
         $channelId = $request->id;
+        /** @var Channel $channel */
+        $channel   = Channel::find($channelId);
+
+        /** @var User $user */
+        $user = User::find(Auth::id());
+        $user->channels()->detach($channelId);
 
 
+        //Deleting if channel have no joined users
+        if (0 === $channel->users->count()) {
+            Channel::find($channelId)->delete();
+        }
+
+        $message = 'Youre left from channel ' . $channel->name;
+        return view('messages', ['message' => $message]);
     }
 
     /**
@@ -90,12 +103,6 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find(Auth::id());
 
-
-
-        return view('profile', ['channels' => $user->channels, 'username' => $user->name]);
+        return view('profile', ['channels' => $user->channels, 'tags' => $user->tags, 'username' => $user->name]);
     }
-
-
-
-
 }

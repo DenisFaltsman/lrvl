@@ -19,24 +19,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/tags', 'TagController@channels');
+Route::get('tags', 'TagController@channels');
+Route::get('profile', 'UserController@profile');
 
-Route::get('/users', 'UserController@users');
+
+Route::get('users', 'UserController@users');
 Route::get('getUserChannels', 'UserController@getChannels');
 Route::get('joinChannel', 'UserController@joinChannel');
 Route::post('joinChannel', 'UserController@joinChannel');
 Route::get('leftChannel', 'UserController@leftChannel');
-Route::get('profile', 'UserController@profile');
 
 
-
-Route::get('/channels', 'ChannelController@channels');
+Route::get('channels', 'ChannelController@channels');
 Route::get('getChannelUsers', 'ChannelController@getUsers');
 Route::get('createChannel', 'ChannelController@createChannel');
 Route::post('createChannel', 'ChannelController@createChannel');
-
-
-
 Route::view('newChannel', 'createchannel');
 Route::view('joinChannel', 'joinchannel');
+
+
 Route::view('newTag', 'createtag');

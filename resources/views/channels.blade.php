@@ -12,7 +12,7 @@
                 <table class="channels-list">
                     <tr>
                         <td>Id</td>
-                        <td>User Id</td>
+                        <td>Owner user Id</td>
                         <td>Channel Name</td>
                     </tr>
                     @foreach($channels as $channel)

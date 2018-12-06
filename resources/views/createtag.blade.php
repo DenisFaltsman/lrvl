@@ -7,9 +7,11 @@
                 <div class="card">
                     <div class="card-header">Dashboard</div>
                     @include('menu')
-                    <h6>Creating channel</h6>
-                    <form method="POST" action="/createChannel">
+                    <h6>Creating tag</h6>
+
+                    <form method="POST" action="/createTag">
                         {{csrf_field()}}
+                        <input type="text" value="channel_id"  id="channel_id" name="channel_id" >
                         <input type="text" value="name"  id="name" name="name" >
                         <input type="submit" class="btn" value="Create"/>
                     </form>
