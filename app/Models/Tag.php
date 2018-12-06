@@ -27,4 +27,12 @@ class Tag extends Model
     {
         return $this->belongsToMany(Channel::class, 'channel_tag', 'tag_id', 'channel_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_tag', 'tag_id', 'user_id');
+    }
 }

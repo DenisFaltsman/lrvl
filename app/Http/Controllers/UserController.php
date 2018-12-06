@@ -66,4 +66,36 @@ class UserController extends Controller
 
         return view('messages', ['message' => $message]);
     }
+
+    /**
+     * @param Request $request
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function leftChannel(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'integer|required',
+        ]);
+
+        $channelId = $request->id;
+
+
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function profile()
+    {
+        /** @var User $user */
+        $user = User::find(Auth::id());
+
+
+
+        return view('profile', ['channels' => $user->channels, 'username' => $user->name]);
+    }
+
+
+
+
 }

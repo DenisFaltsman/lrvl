@@ -26,6 +26,7 @@ Route::get('getUserChannels', 'UserController@getChannels');
 Route::get('joinChannel', 'UserController@joinChannel');
 Route::post('joinChannel', 'UserController@joinChannel');
 Route::get('leftChannel', 'UserController@leftChannel');
+Route::get('profile', 'UserController@profile');
 
 
 
