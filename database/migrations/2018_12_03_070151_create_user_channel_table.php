@@ -18,8 +18,8 @@ class CreateUserChannelTable extends Migration
     {
         Schema::create('user_channel', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unique();
-            $table->integer('channel_id')->unique();
+            $table->integer('user_id');
+            $table->integer('channel_id');
         });
     }
 
