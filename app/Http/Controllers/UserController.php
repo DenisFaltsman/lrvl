@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UserController
@@ -11,22 +13,57 @@ use Illuminate\Http\Request;
  */
 class UserController extends Controller
 {
-    public function index()
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function users()
     {
         $users = User::all();
 
+        return view('users', ['users' => $users]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function getChannels(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|integer',
+        ]);
 
         /** @var User $user */
-        foreach ($users as $user) {
-            echo $user->id . ' ' . $user->name . ' ';
-            foreach($user->channels as $channel) {
-                echo $channel->name . ', ';
-            }
-            echo '<hr>';
+        $user = User::find($request->id);
+
+        return view('singleuser', ['channels' => $user->channels, 'username' => $user->name]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function joinChannel(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'string|required',
+        ]);
+
+        $channelName = $request->name;
+
+        if (0 === Channel::where('name', '=', $channelName)->count()) {
+            $message =  'Channel ' . $channelName . ' doesnt exist. You can create this channel use link on the Top menu.';
+            return view('messages', ['message' => $message]);
         }
 
+        /** @var Channel $channelEntity */
+        $channelEntity = Channel::where('name', '=', $channelName)->first();
+        $channelEntity->users()->sync(['user_id' => Auth::id()], false);
+        $message = 'You are joined to ' . $channelEntity->name;
 
-        exit;
-
+        return view('messages', ['message' => $message]);
     }
 }

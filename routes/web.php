@@ -19,16 +19,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/tags', 'TagController@channels');
 
-Route::get('/channels', 'ChannelController@channels')->name('channels');
-
-Route::get('/tags', 'TagController@channels')->name('tags');
-
-
-Route::get('/users', 'UserController@index')->name('users');
-
+Route::get('/users', 'UserController@users');
+Route::get('getUserChannels', 'UserController@getChannels');
+Route::get('joinChannel', 'UserController@joinChannel');
+Route::post('joinChannel', 'UserController@joinChannel');
+Route::get('leftChannel', 'UserController@leftChannel');
 
 
-//Route::get('/api/flights/{id}', function ($id) {
-//    return App\Flight::findOrFail($id);
-//});
+
+Route::get('/channels', 'ChannelController@channels');
+Route::get('getChannelUsers', 'ChannelController@getUsers');
+Route::get('createChannel', 'ChannelController@createChannel');
+Route::post('createChannel', 'ChannelController@createChannel');
+
+
+
+Route::view('newChannel', 'createchannel');
+Route::view('joinChannel', 'joinchannel');
+Route::view('newTag', 'createtag');

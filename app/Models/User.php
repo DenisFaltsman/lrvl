@@ -37,14 +37,6 @@ class User extends Authenticatable
      */
     protected $table = 'users';
 
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function channels()
-//    {
-//        return $this->hasMany(Channel::class,'user_id','id');
-//    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

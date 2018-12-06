@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * Class CreateTagsTable
  */
-class CreateUserChannelTable extends Migration
+class CreateUserTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,10 +16,10 @@ class CreateUserChannelTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_channel', function (Blueprint $table) {
+        Schema::create('user_tag', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unique();
-            $table->integer('channel_id')->unique();
+            $table->integer('tag_id')->unique();
         });
     }
 
