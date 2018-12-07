@@ -28,45 +28,8 @@ class ChannelController extends Controller
      */
     public function channels()
     {
-        $channels = Channel::all();
-
-        return view('channels', ['channels' => $channels]);
+        return view('channels', ['channels' => Channel::all()]);
     }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function createChannelAction(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'string|required',
-        ]);
-
-        $channelName = $request->name;
-        if (Channel::where('name', '=', $channelName)->count() > 0) {
-            $message =  'Channel ' . $channelName . ' already exists';
-            return view('messages', ['message' => $message]);
-        }
-
-        $userId = Auth::id();
-
-        $channel = new Channel();
-        $channel->name = $channelName;
-        $channel->user_id = $userId;
-
-        /** @var User $user */
-        $user = User::find($userId);
-
-        $user->channels()->save($channel);
-
-        $message = 'Channel ' . $channelName . ' has been created by You.';
-
-        return view('messages', ['message' => $message]);
-    }
-
-
 
 
     /**
@@ -86,6 +49,40 @@ class ChannelController extends Controller
         return view('singleuser', ['channels' => $user->channels, 'username' => $user->name]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function createChannelAction(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'string|required',
+        ]);
+
+        $channelName = $request->name;
+        if (Channel::where('name', '=', $channelName)->count() > 0) {
+            return view('messages',
+                ['message' => 'Channel ' . $channelName . ' already exists']
+            );
+        }
+
+        $userId = Auth::id();
+
+        $channel = new Channel();
+        $channel->name = $channelName;
+        $channel->user_id = $userId;
+
+        /** @var User $user */
+        $user = User::find($userId);
+
+        $user->channels()->save($channel);
+
+        return view('messages',
+            ['message' => 'Channel ' . $channelName . ' has been created by You.']
+        );
+    }
+
 
     /**
      * @param Request $request
@@ -101,22 +98,20 @@ class ChannelController extends Controller
         $channelName = $request->name;
 
         if (0 === Channel::where('name', '=', $channelName)->count()) {
-            $message =  'Channel ' . $channelName . ' doesnt exist. You can create this channel use link on the Top menu.';
-            return view('messages', ['message' => $message]);
+            return view('messages',
+                ['message' => 'Channel ' . $channelName . ' doesnt exist. You can create this channel use link on the Top menu.']
+            );
         }
 
         /** @var Channel $channelEntity */
         $channelEntity = Channel::where('name', '=', $channelName)->first();
         if ($channelEntity->users()->where('user_id', Auth::id())->exists()) {
-            $message = 'You already joined on this channel';
-            return view('messages', ['message' => $message]);
+            return view('messages', ['message' => 'You already joined on this channel']);
         }
 
-
         $channelEntity->users()->sync(['user_id' => Auth::id()], false);
-        $message = 'You are joined to ' . $channelEntity->name;
 
-        return view('messages', ['message' => $message]);
+        return view('messages', ['message' => 'You are joined to ' . $channelEntity->name]);
     }
 
     /**
@@ -137,14 +132,11 @@ class ChannelController extends Controller
         $user = User::find(Auth::id());
         $user->channels()->detach($channelId);
 
-
         //Deleting if channel have no joined users
         if (0 === $channel->users->count()) {
             Channel::find($channelId)->delete();
         }
 
-        $message = 'Youre left from channel ' . $channel->name;
-        return view('messages', ['message' => $message]);
+        return view('messages', ['message' => 'Youre left from channel ' . $channel->name]);
     }
-
 }

@@ -24,8 +24,9 @@ Route::get('profile', 'UserController@profile');
 Route::get('users', 'UserController@users');
 Route::get('getChannelUsers', 'UserController@getUsers');
 
+
+
 Route::get('createUser', 'UserController@createUser');
-Route::get('createUserAction', 'UserController@createUserAction');
 Route::post('createUserAction', 'UserController@createUserAction');
 
 Route::get('getUserChannels', 'ChannelController@getChannels');
@@ -45,4 +46,12 @@ Route::post('createTagAction', 'TagController@createTagAction');
 
 
 
+Route::view('createUser', 'createuser');
+
+
+//Route::group(['middleware' => 'auth'], function () {
+//  Route::get('profile', 'UserController@profile');
+//});
+//
+//Route::auth();
 

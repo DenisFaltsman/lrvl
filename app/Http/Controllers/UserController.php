@@ -13,14 +13,25 @@ use Illuminate\Support\Facades\Auth;
  */
 class UserController extends Controller
 {
+    /*
+     * @const
+     */
+    private const DEFAULT_PASSWORD = 'qwerty';
+
+    /**
+     * ChannelController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function users()
     {
-        $users = User::all();
-
-        return view('users', ['users' => $users]);
+        return view('users', ['users' => User::all()]);
     }
 
 
@@ -51,5 +62,37 @@ class UserController extends Controller
         $user = User::find(Auth::id());
 
         return view('profile', ['channels' => $user->channels, 'tags' => $user->tags, 'username' => $user->name]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function createUserAction(Request $request)
+    {
+        $this->validate($request, [
+            'name'  => 'string|required',
+            'email' => 'email|required',
+        ]);
+
+        $email = $request->email;
+
+        if (User::where('email', '=', $email)->count() > 0) {
+            return view('messages', ['message' => 'User with ' . $email . ' already exists']);
+        }
+
+        /** @var User $user */
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $email;
+        $user->password = md5(self::DEFAULT_PASSWORD);
+
+        $user->save();
+
+        $message = 'User with email ' . $email . ' and password ' . self::DEFAULT_PASSWORD . ' has been created by You.';
+
+        return view('messages', ['message' => $message]);
     }
 }

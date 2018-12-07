@@ -29,13 +29,12 @@ class TagController extends Controller
      */
     public function createTag(Request $request)
     {
-        $channels = Channel::all();
-
-        return view('createtag', ['channels' => $channels]);
+        return view('createtag', ['channels' => Channel::all()]);
     }
 
     /**
      * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
     public function createTagAction(Request $request)
@@ -44,22 +43,52 @@ class TagController extends Controller
             'name' => 'string|required',
             'channel_id' => 'integer|required'
         ]);
-        $tagName =   $request->name;
+        $tagName   = $request->name;
         $channelId = $request->channel_id;
-
-        $userId =    Auth::id();
+        $userId    = Auth::id();
 
         /** @var Tag $tag */
         $tag = Tag::where('name', '=', $tagName);
 
         /** @var Channel $channel */
         $channel = Channel::find($channelId);
-        
+
         if (0 === $tag->count()) {
             $tag = new Tag();
             $tag->name = $tagName;
-            $tag->users()->save($tag);
-            $tag->channels()->save($channel);
         }
+
+        //@todo думаю можно как-то лучше запилить
+        $tag->users()->save($tag);
+        $tag->users()->sync(['user_id' => $userId]);
+        $tag->channels()->save($channel);
+        $tag->channels()->sync(['channel_id' => $channelId]);
+
+        return view('messages',
+            ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
+        );
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function removeTagAction(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'integer|required'
+        ]);
+        $tagId   = $request->id;
+        $userId    = Auth::id();
+
+        echo 'Remove Tag id . ' . $tagId;
+        exit;
+
+        return view('messages',
+            ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
+        );
+    }
+
+
 }

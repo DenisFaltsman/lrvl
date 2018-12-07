@@ -9,15 +9,31 @@
                     @include('menu')
 
                 <h6>Single User ({{$username}}) Channels</h6>
-                <table class="channels-list">
+                <div>
+                    <table class="channels-list">
+                        <tr>
+                            <td>Id</td>
+                            <td>Channel Name</td>
+                        </tr>
+                        @foreach($channels as $channel)
+                            <tr>
+                                <td>{{$channel['id']}}</td>
+                                <td>{{$channel['name']}} <a href="leftChannelAction?id={{$channel['id']}}">Left?</a></td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+
+                <hr>
+                <table class="tags-list">
                     <tr>
                         <td>Id</td>
-                        <td>Channel Name</td>
+                        <td>Tag Name</td>
                     </tr>
-                    @foreach($channels as $channel)
+                    @foreach($tags as $tag)
                         <tr>
-                            <td>{{$channel['id']}}</td>
-                            <td>{{$channel['name']}} <a href="leftChannelAction?id={{$channel['id']}}">Left?</a></td>
+                            <td>{{$tag['id']}}</td>
+                            <td>{{$tag['name']}} <a href="removeTag?id={{$tag['id']}}">Remove?</a></td>
                         </tr>
                     @endforeach
                 </table>
