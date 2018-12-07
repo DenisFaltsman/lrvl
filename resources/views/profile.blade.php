@@ -17,7 +17,7 @@
                     @foreach($channels as $channel)
                         <tr>
                             <td>{{$channel['id']}}</td>
-                            <td>{{$channel['name']}} <a href="/leftChannel?id={{$channel['id']}}">Left?</a></td>
+                            <td>{{$channel['name']}} <a href="leftChannelAction?id={{$channel['id']}}">Left?</a></td>
                         </tr>
                     @endforeach
                 </table>

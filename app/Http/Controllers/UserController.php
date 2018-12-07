@@ -61,6 +61,12 @@ class UserController extends Controller
 
         /** @var Channel $channelEntity */
         $channelEntity = Channel::where('name', '=', $channelName)->first();
+        if ($channelEntity->users()->where('user_id', Auth::id())->exists()) {
+            $message = 'You already joined on this channel';
+            return view('messages', ['message' => $message]);
+        }
+
+
         $channelEntity->users()->sync(['user_id' => Auth::id()], false);
         $message = 'You are joined to ' . $channelEntity->name;
 
