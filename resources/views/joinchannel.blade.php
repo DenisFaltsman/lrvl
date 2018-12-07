@@ -11,8 +11,8 @@
 
                     <form method="POST" action="/joinChannelAction">
                         {{csrf_field()}}
-                        <input type="text" value="name"  id="name" name="name" >
-                        <input type="submit" class="btn" value="Join"/>
+                        <div><input type="text" placeholder="Name"  id="name" name="name" ></div>
+                        <div><input type="submit" class="btn" value="Join"/></div>
                     </form>
 
                 </div>

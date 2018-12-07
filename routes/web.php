@@ -28,6 +28,7 @@ Route::get('getChannelUsers', 'UserController@getUsers');
 
 Route::get('createUser', 'UserController@createUser');
 Route::post('createUserAction', 'UserController@createUserAction');
+Route::get('createUserAction', 'UserController@createUserAction');
 
 Route::get('getUserChannels', 'ChannelController@getChannels');
 Route::get('joinChannelAction', 'ChannelController@joinChannelAction');
