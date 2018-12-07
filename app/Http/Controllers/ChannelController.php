@@ -55,7 +55,7 @@ class ChannelController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function createChannel(Request $request)
+    public function createChannelAction(Request $request)
     {
         $this->validate($request, [
             'name' => 'string|required',

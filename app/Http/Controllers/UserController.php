@@ -46,7 +46,7 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function joinChannel(Request $request)
+    public function joinChannelAction(Request $request)
     {
         $this->validate($request, [
             'name' => 'string|required',
@@ -71,7 +71,7 @@ class UserController extends Controller
      * @param Request $request
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function leftChannel(Request $request)
+    public function leftChannelAction(Request $request)
     {
         $this->validate($request, [
             'id' => 'integer|required',

@@ -9,7 +9,7 @@
                     @include('menu')
                     <h6>Join channel</h6>
 
-                    <form method="POST" action="/joinChannel">
+                    <form method="POST" action="/joinChannelAction">
                         {{csrf_field()}}
                         <input type="text" value="name"  id="name" name="name" >
                         <input type="submit" class="btn" value="Join"/>

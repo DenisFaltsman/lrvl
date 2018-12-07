@@ -25,17 +25,17 @@ Route::get('profile', 'UserController@profile');
 
 Route::get('users', 'UserController@users');
 Route::get('getUserChannels', 'UserController@getChannels');
-Route::get('joinChannel', 'UserController@joinChannel');
-Route::post('joinChannel', 'UserController@joinChannel');
-Route::get('leftChannel', 'UserController@leftChannel');
+Route::get('joinChannelAction', 'UserController@joinChannelAction');
+Route::post('joinChannelAction', 'UserController@joinChannelAction');
+Route::get('leftChannelAction', 'UserController@leftChannelAction');
 
 
 Route::get('channels', 'ChannelController@channels');
 Route::get('getChannelUsers', 'ChannelController@getUsers');
-Route::get('createChannel', 'ChannelController@createChannel');
-Route::post('createChannel', 'ChannelController@createChannel');
-Route::view('newChannel', 'ChannelController@createChannel');
-Route::view('joinChannel', 'ChannelController@joinChannel');
+Route::get('createChannelAction', 'ChannelController@createChannelAction');
+Route::post('createChannelAction', 'ChannelController@createChannelAction');
+Route::view('createChannel', 'createchannel');
+Route::view('joinChannel', 'joinchannel');
 
 
 
