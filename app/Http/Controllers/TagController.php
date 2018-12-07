@@ -47,9 +47,6 @@ class TagController extends Controller
         $tagName =   $request->name;
         $channelId = $request->channel_id;
 
-        echo 'tagName' . $tagName . ' Channel Id ' . $channelId;
-        exit;
-
         $userId =    Auth::id();
 
         /** @var Tag $tag */

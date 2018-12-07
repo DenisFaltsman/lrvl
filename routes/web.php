@@ -19,26 +19,30 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('tags', 'TagController@channels');
+
 Route::get('profile', 'UserController@profile');
-
-
 Route::get('users', 'UserController@users');
-Route::get('getUserChannels', 'UserController@getChannels');
-Route::get('joinChannelAction', 'UserController@joinChannelAction');
-Route::post('joinChannelAction', 'UserController@joinChannelAction');
-Route::get('leftChannelAction', 'UserController@leftChannelAction');
+Route::get('getChannelUsers', 'UserController@getUsers');
 
+Route::get('createUser', 'UserController@createUser');
+Route::get('createUserAction', 'UserController@createUserAction');
+Route::post('createUserAction', 'UserController@createUserAction');
 
+Route::get('getUserChannels', 'ChannelController@getChannels');
+Route::get('joinChannelAction', 'ChannelController@joinChannelAction');
+Route::post('joinChannelAction', 'ChannelController@joinChannelAction');
+Route::get('leftChannelAction', 'ChannelController@leftChannelAction');
 Route::get('channels', 'ChannelController@channels');
-Route::get('getChannelUsers', 'ChannelController@getUsers');
 Route::get('createChannelAction', 'ChannelController@createChannelAction');
 Route::post('createChannelAction', 'ChannelController@createChannelAction');
 Route::view('createChannel', 'createchannel');
 Route::view('joinChannel', 'joinchannel');
 
-
-
+Route::get('tags', 'TagController@channels');
 Route::get('createTag', 'TagController@createTag');
 Route::get('createTagAction', 'TagController@createTagAction');
 Route::post('createTagAction', 'TagController@createTagAction');
+
+
+
+
