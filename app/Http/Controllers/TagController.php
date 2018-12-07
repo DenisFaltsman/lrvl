@@ -52,13 +52,9 @@ class TagController extends Controller
         /** @var Tag $tag */
         $tag = Tag::where('name', '=', $tagName);
 
-        /** @var User $user */
-        $user = User::find($userId);
-
         /** @var Channel $channel */
         $channel = Channel::find($channelId);
-
-
+        
         if (0 === $tag->count()) {
             $tag = new Tag();
             $tag->name = $tagName;
