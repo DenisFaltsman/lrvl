@@ -12,7 +12,7 @@
                         {{csrf_field()}}
                         <div><input type="text" placeholder="Name" id="name" name="name" ></div>
                         <div><input type="email" placeholder="Email"  id="email" name="name" ></div>
-                        <div><input type="submit" class="btn" value="Create"/></div>
+                        <div><input type="submit" class="btn" value="Create User"/></div>
                     </form>
                 </div>
             </div>

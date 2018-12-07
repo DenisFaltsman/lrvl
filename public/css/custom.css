@@ -25,6 +25,10 @@
 .card form {
     padding: 0 20px 20px;
 }
+.card form .btn:hover {
+    background: green;
+    color: #fff;
+}
 .card form div {
     margin-top: 20px;
 }
