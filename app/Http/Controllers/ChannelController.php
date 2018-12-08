@@ -15,15 +15,6 @@ use Illuminate\Support\Facades\Auth;
 class ChannelController extends Controller
 {
     /**
-     * ChannelController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-
-    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function channels()
@@ -40,11 +31,11 @@ class ChannelController extends Controller
     public function getChannels(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required|integer',
+            'user_id' => 'required|integer',
         ]);
 
         /** @var User $user */
-        $user = User::find($request->id);
+        $user = User::find($request->user_id);
 
         return view('singleuser', ['channels' => $user->channels, 'username' => $user->name]);
     }
@@ -124,7 +115,8 @@ class ChannelController extends Controller
             'id' => 'integer|required',
         ]);
 
-        $channelId = $request->id;
+        $channelId = $request->input('channel_id');
+
         /** @var Channel $channel */
         $channel   = Channel::find($channelId);
 

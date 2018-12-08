@@ -8,12 +8,11 @@
                     <div class="card-header">Dashboard</div>
                     @include('menu')
                     <h6>Creating user</h6>
-                    <form method="POST" action="/createUserAction">
-                        {{csrf_field()}}
-                        <div><input type="text" placeholder="Name" id="name" name="name" ></div>
-                        <div><input type="email" placeholder="Email"  id="email" name="name" ></div>
-                        <div><input type="submit" class="btn" value="Create User"/></div>
-                    </form>
+                        {{ Form::open(array('url' => 'createUserAction')) }}
+                            <div><input type="text" placeHolder="Name"  id="name" name="name" /></div>
+                            <div><input type="email" placeHolder="Email"  id="email" name="email" /></div>
+                            <div><input type="submit" class="btn" value="Create User"/></div>
+                        {{ Form::close() }}
                 </div>
             </div>
         </div>

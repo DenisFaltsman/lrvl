@@ -15,15 +15,6 @@ use Illuminate\Support\Facades\Auth;
 class TagController extends Controller
 {
     /**
-     * TagController constructor.
-     */
-    public function __construct()
-    {
-        // А можно было и через роуты
-        $this->middleware('auth');
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -47,22 +38,32 @@ class TagController extends Controller
         $channelId = $request->channel_id;
         $userId    = Auth::id();
 
-        /** @var Tag $tag */
-        $tag = Tag::where('name', '=', $tagName);
+        /** @var array $collectionTags */
+        $collectionTags = Tag::where('name', '=', $tagName);
 
         /** @var Channel $channel */
         $channel = Channel::find($channelId);
 
-        if (0 === $tag->count()) {
+
+        if (0 === $collectionTags->count()) {
+            /** @var Tag $tag */
             $tag = new Tag();
             $tag->name = $tagName;
+            $tag->users()->save($tag);
+            $tag->users()->sync(['user_id' => $userId]);
+            $tag->channels()->save($channel);
+            $tag->channels()->sync(['channel_id' => $channelId]);
+
+            return view('messages',
+                ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
+            );
         }
 
-        //@todo думаю можно как-то лучше запилить
+        $tag = $collectionTags->first();
         $tag->users()->save($tag);
-        $tag->users()->sync(['user_id' => $userId]);
+        $tag->users()->sync(['user_id' => $userId], false);
         $tag->channels()->save($channel);
-        $tag->channels()->sync(['channel_id' => $channelId]);
+        $tag->channels()->sync(['channel_id' => $channelId], false);
 
         return view('messages',
             ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']

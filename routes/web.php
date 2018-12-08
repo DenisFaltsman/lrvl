@@ -11,48 +11,34 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('profile', 'UserController@profile');
-Route::get('users', 'UserController@users');
-Route::get('getChannelUsers', 'UserController@getUsers');
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::post('createUserAction', 'UserController@createUserAction');
+    Route::post('createChannelAction', 'ChannelController@createChannelAction');
+    Route::post('joinChannelAction', 'ChannelController@joinChannelAction');
+    Route::post('createTagAction', 'TagController@createTagAction');
 
 
+    Route::get('profile', 'UserController@profile');
+    Route::get('users', 'UserController@users');
+    Route::get('getChannelUsers', 'UserController@getChannelUsers');
+    Route::get('getUserChannels', 'ChannelController@getChannels');
+    Route::get('leftChannelAction', 'ChannelController@leftChannelAction');
+    Route::get('channels', 'ChannelController@channels');
+    Route::get('tags', 'TagController@channels');
+    Route::get('createTag', 'TagController@createTag');
+    Route::get('createTagAction', 'TagController@createTagAction');
 
-Route::get('createUser', 'UserController@createUser');
-Route::post('createUserAction', 'UserController@createUserAction');
-Route::get('createUserAction', 'UserController@createUserAction');
-
-Route::get('getUserChannels', 'ChannelController@getChannels');
-Route::get('joinChannelAction', 'ChannelController@joinChannelAction');
-Route::post('joinChannelAction', 'ChannelController@joinChannelAction');
-Route::get('leftChannelAction', 'ChannelController@leftChannelAction');
-Route::get('channels', 'ChannelController@channels');
-Route::get('createChannelAction', 'ChannelController@createChannelAction');
-Route::post('createChannelAction', 'ChannelController@createChannelAction');
-Route::view('createChannel', 'createchannel');
-Route::view('joinChannel', 'joinchannel');
-
-Route::get('tags', 'TagController@channels');
-Route::get('createTag', 'TagController@createTag');
-Route::get('createTagAction', 'TagController@createTagAction');
-Route::post('createTagAction', 'TagController@createTagAction');
-
-
-
-Route::view('createUser', 'createuser');
-
-
-//Route::group(['middleware' => 'auth'], function () {
-//  Route::get('profile', 'UserController@profile');
-//});
-//
-//Route::auth();
-
+    Route::view('createUser', 'createuser');
+    Route::view('createChannel', 'createchannel');
+    Route::view('joinChannel', 'joinchannel');
+});

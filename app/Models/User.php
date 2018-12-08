@@ -52,4 +52,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Tag::class, 'user_tag', 'user_id', 'tag_id');
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
 }

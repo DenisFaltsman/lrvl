@@ -18,13 +18,6 @@ class UserController extends Controller
      */
     private const DEFAULT_PASSWORD = 'qwerty';
 
-    /**
-     * ChannelController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -40,14 +33,19 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getUsers(Request $request)
+    public function getChannelUsers(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required|integer',
+            'channel_id' => 'required|integer',
         ]);
+        echo 'Channel Id '; exit;
+
+        $channelId = $request->get('channel_id');
+
+
 
         /** @var Channel $channel */
-        $channel = Channel::find($request->id);
+        $channel = Channel::find($channelId);
 
         return view('singlechannel', ['users' => $channel->users, 'channelname' => $channel->name]);
     }
@@ -78,6 +76,8 @@ class UserController extends Controller
         ]);
 
         $email = $request->email;
+        $name  =  $request->name;
+
 
         if (User::where('email', '=', $email)->count() > 0) {
             return view('messages', ['message' => 'User with ' . $email . ' already exists']);
@@ -85,7 +85,7 @@ class UserController extends Controller
 
         /** @var User $user */
         $user = new User();
-        $user->name = $request->name;
+        $user->name = $name;
         $user->email = $email;
         $user->password = md5(self::DEFAULT_PASSWORD);
 
