@@ -35,17 +35,12 @@ class UserController extends Controller
      */
     public function getChannelUsers(Request $request)
     {
-        $this->validate($request, [
-            'channel_id' => 'required|integer',
-        ]);
-        echo 'Channel Id '; exit;
-
-        $channelId = $request->get('channel_id');
-
-
+//        $this->validate($request, [
+//            'id' => 'required|integer',
+//        ]);
 
         /** @var Channel $channel */
-        $channel = Channel::find($channelId);
+        $channel = Channel::find((int) $request->id);
 
         return view('singlechannel', ['users' => $channel->users, 'channelname' => $channel->name]);
     }

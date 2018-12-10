@@ -28,17 +28,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('createTagAction', 'TagController@createTagAction');
 
 
-    Route::get('profile', 'UserController@profile');
-    Route::get('users', 'UserController@users');
-    Route::get('getChannelUsers', 'UserController@getChannelUsers');
-    Route::get('getUserChannels', 'ChannelController@getChannels');
-    Route::get('leftChannelAction', 'ChannelController@leftChannelAction');
+    Route::get('leftChannelAction/{id}', 'ChannelController@leftChannelAction');
     Route::get('channels', 'ChannelController@channels');
     Route::get('tags', 'TagController@channels');
     Route::get('createTag', 'TagController@createTag');
+    Route::get('createTagAction', 'TagController@createTagAction');
     Route::get('createTagAction', 'TagController@createTagAction');
 
     Route::view('createUser', 'createuser');
     Route::view('createChannel', 'createchannel');
     Route::view('joinChannel', 'joinchannel');
+
+
+    Route::get('profile', 'UserController@profile');
+    Route::get('users', 'UserController@users');
+
+    Route::get('getChannelUsers/{id}', 'UserController@getChannelUsers');
+    Route::get('getUserChannels/{id}', 'ChannelController@getUserChannels');
 });

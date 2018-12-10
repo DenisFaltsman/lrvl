@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Tag;
 use App\Models\User;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class ChannelController
@@ -28,14 +31,10 @@ class ChannelController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getChannels(Request $request)
+    public function getUserChannels(Request $request)
     {
-        $this->validate($request, [
-            'user_id' => 'required|integer',
-        ]);
-
         /** @var User $user */
-        $user = User::find($request->user_id);
+        $user = User::find((int) $request->id);
 
         return view('singleuser', ['channels' => $user->channels, 'username' => $user->name]);
     }
@@ -111,11 +110,9 @@ class ChannelController extends Controller
      */
     public function leftChannelAction(Request $request)
     {
-        $this->validate($request, [
-            'id' => 'integer|required',
-        ]);
+        //$this->validate($request, ['channel_id' => 'required']);
 
-        $channelId = $request->input('channel_id');
+        $channelId = (int) $request->id;
 
         /** @var Channel $channel */
         $channel   = Channel::find($channelId);

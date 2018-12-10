@@ -9,18 +9,20 @@
                     @include('menu')
 
                 <h6>Single User ({{$username}}) Channels</h6>
-                <table class="channels-list">
-                    <tr>
-                        <td>Id</td>
-                        <td>Channel Name</td>
-                    </tr>
-                    @foreach($channels as $channel)
+                <div class="table-wrap">
+                    <table class="channels-list">
                         <tr>
-                            <td>{{$channel['id']}}</td>
-                            <td>{{$channel['name']}}</td>
+                            <td>Id</td>
+                            <td>Channel Name</td>
                         </tr>
-                    @endforeach
-                </table>
+                        @foreach($channels as $channel)
+                            <tr>
+                                <td>{{$channel['id']}}</td>
+                                <td>{{$channel['name']}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
         </div>
     </div>

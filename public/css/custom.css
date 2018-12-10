@@ -11,6 +11,7 @@
 .middle-menu {
     display: flex;
     margin-left: 20px;
+    padding: 10px 0;
 }
 .middle-menu > div,
 .channel-list .single-row > div {
@@ -21,7 +22,6 @@
     display: flex;
 }
 
-
 .card form {
     padding: 0 20px 20px;
 }
@@ -31,4 +31,8 @@
 }
 .card form div {
     margin-top: 20px;
+}
+
+.table-wrap {
+    padding: 0 20px 20px;
 }

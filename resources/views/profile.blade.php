@@ -9,7 +9,7 @@
                     @include('menu')
 
                 <h6>Single User ({{$username}}) Channels</h6>
-                <div>
+                <div class="table-wrap">
                     <table class="channels-list">
                         <tr>
                             <td>Id</td>
@@ -18,25 +18,24 @@
                         @foreach($channels as $channel)
                             <tr>
                                 <td>{{$channel['id']}}</td>
-                                <td>{{$channel['name']}} <a href="leftChannelAction?channel_id={{$channel['id']}}">Left?</a></td>
+                                <td>{{$channel['name']}} <a href="leftChannelAction/{{$channel['id']}}">Left?</a></td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <hr>
+                    <table class="tags-list">
+                        <tr>
+                            <td>Id</td>
+                            <td>Tag Name</td>
+                        </tr>
+                        @foreach($tags as $tag)
+                            <tr>
+                                <td>{{$tag['id']}}</td>
+                                <td>{{$tag['name']}} <a href="removeTag?tag_id={{$tag['id']}}">Remove?</a></td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
-
-                <hr>
-                <table class="tags-list">
-                    <tr>
-                        <td>Id</td>
-                        <td>Tag Name</td>
-                    </tr>
-                    @foreach($tags as $tag)
-                        <tr>
-                            <td>{{$tag['id']}}</td>
-                            <td>{{$tag['name']}} <a href="removeTag?tag_id={{$tag['id']}}">Remove?</a></td>
-                        </tr>
-                    @endforeach
-                </table>
             </div>
         </div>
     </div>
