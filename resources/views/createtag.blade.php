@@ -13,6 +13,7 @@
                         {{csrf_field()}}
                         <div>
                             <select name="channel_id" id="channel_id">
+                                <option value="" selected disabled hidden>Choose channel</option>
                                 @foreach($channels as $channel)
                                     <option value="{{ $channel['id'] }}">
                                         {{ $channel['name'] }}

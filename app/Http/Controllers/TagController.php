@@ -93,8 +93,13 @@ class TagController extends Controller
         ]);
         $tagId   = $request->id;
         $channelId = $request->channel;
-
         $userId    = Auth::id();
+
+        echo 'Tag id: ' . $tagId . ' Channel Id: ' . $channelId;
+
+
+
+        exit;
 
 
 //        return view('messages',
