@@ -44,26 +44,18 @@ class TagController extends Controller
         /** @var Channel $channel */
         $channel = Channel::find($channelId);
 
-
+        /** @var Tag $tag */
         if (0 === $collectionTags->count()) {
-            /** @var Tag $tag */
             $tag = new Tag();
             $tag->name = $tagName;
-            $tag->users()->save($tag);
-            $tag->users()->sync(['user_id' => $userId]);
-            $tag->channels()->save($channel);
-            $tag->channels()->sync(['channel_id' => $channelId]);
-
-            return view('messages',
-                ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
-            );
+            $tag->save();
+        } else {
+            $tag = $collectionTags->first();
         }
 
-        $tag = $collectionTags->first();
-        $tag->users()->save($tag);
         $tag->users()->sync(['user_id' => $userId], false);
-        $tag->channels()->save($channel);
         $tag->channels()->sync(['channel_id' => $channelId], false);
+        $tag->save();
 
         return view('messages',
             ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
@@ -81,14 +73,14 @@ class TagController extends Controller
             'id' => 'integer|required'
         ]);
         $tagId   = $request->id;
+        $channelId = $request->channel;
+
         $userId    = Auth::id();
 
-        echo 'Remove Tag id . ' . $tagId;
-        exit;
 
-        return view('messages',
-            ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
-        );
+//        return view('messages',
+//            ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
+//        );
     }
 
 
