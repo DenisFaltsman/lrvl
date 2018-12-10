@@ -33,7 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('tags', 'TagController@channels');
     Route::get('createTag', 'TagController@createTag');
     Route::get('createTagAction', 'TagController@createTagAction');
-    Route::get('removeTagAction', 'TagController@removeTagAction');
+
+    Route::get('removeTagAction/{id}/{channel}', 'TagController@removeTagAction');
 
 
     Route::view('createUser', 'createuser');
