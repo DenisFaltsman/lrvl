@@ -56,21 +56,19 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find(Auth::id());
 
-        $entities = [];
+        $tags = [];
 
         /** @var Tag $tag */
         foreach ($user->tags as $key => $tag) {
-            $entities[$key]['tag'] = $tag->id;
+            $tags[$key]['tag_id'] = $tag->id;
+            $tags[$key]['tag_name'] = $tag->name;
             /** @var Channel $channel */
             foreach ($tag->channels as $channel) {
-                $entities[$key]['channel'] = $channel->id;
+                $tags[$key]['channel_id'] = $channel->id;
             }
         }
 
-        dd($entities);
-
-
-        return view('profile', ['channels' => $user->channels, 'tags' => $user->tags, 'username' => $user->name]);
+        return view('profile', ['channels' => $user->channels, 'username' => $user->name, 'tags' => $tags]);
     }
 
 

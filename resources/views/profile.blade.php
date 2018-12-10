@@ -30,11 +30,12 @@
                         </tr>
                         @foreach($tags as $tag)
                             <tr>
-                                <td>{{$tag['id']}}</td>
-                                <td>{{$tag['name']}} <a href="removeTag/{{$tag['id']}}">Remove?</a></td>
+                                <td>{{$tag['tag_id']}}</td>
+                                <td>{{$tag['tag_name']}} <a href="removeTagAction/{{$tag['tag_id']}}/{{$tag['channel_id']}}">Remove?</a></td>
                             </tr>
                         @endforeach
                     </table>
+
                 </div>
             </div>
         </div>

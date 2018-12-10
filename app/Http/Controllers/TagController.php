@@ -88,11 +88,13 @@ class TagController extends Controller
      */
     public function removeTagAction(Request $request)
     {
-        $this->validate($request, [
-            'id' => 'integer|required'
-        ]);
-        $tagId   = $request->id;
-        $channelId = $request->channel;
+//        $this->validate($request, [
+//            'id' => 'integer|required'
+//        ]);
+        //а можно и с валидатором
+
+        $tagId   = (int) $request->id;
+        $channelId = (int) $request->channel;
         $userId    = Auth::id();
 
         echo 'Tag id: ' . $tagId . ' Channel Id: ' . $channelId;
