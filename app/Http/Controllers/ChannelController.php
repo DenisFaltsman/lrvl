@@ -31,12 +31,12 @@ class ChannelController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getUserChannels(Request $request)
+    public function getUserInfo(Request $request)
     {
         /** @var User $user */
         $user = User::find((int) $request->id);
 
-        return view('singleuser', ['channels' => $user->channels, 'username' => $user->name]);
+        return view('singleuser', ['channels' => $user->channels, 'username' => $user->name, 'tags' => $user->tags]);
     }
 
     /**

@@ -20,7 +20,7 @@
                                 <tr>
                                     <td>{{$channel['id']}}</td>
                                     <td>{{$channel['user_id']}}</td>
-                                    <td><a href="{{url('/getChannelUsers')}}/{{$channel['id']}}">{{$channel['name']}}</a></td>
+                                    <td><a href="{{url('/getChannelInfo')}}/{{$channel['id']}}">{{$channel['name']}}</a></td>
                                 </tr>
                             @endforeach
                         </table>

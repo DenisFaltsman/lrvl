@@ -22,6 +22,19 @@
                             </tr>
                         @endforeach
                     </table>
+                    <hr>
+                    <table class="channels-list">
+                        <tr>
+                            <td>Id</td>
+                            <td>Tag Name</td>
+                        </tr>
+                        @foreach($tags as $tag)
+                            <tr>
+                                <td>{{$tag['id']}}</td>
+                                <td>{{$tag['name']}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>

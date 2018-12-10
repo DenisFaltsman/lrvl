@@ -34,7 +34,7 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function getChannelUsers(Request $request)
+    public function getChannelInfo(Request $request)
     {
 //        $this->validate($request, [
 //            'id' => 'required|integer',
@@ -43,7 +43,7 @@ class UserController extends Controller
         /** @var Channel $channel */
         $channel = Channel::find((int) $request->id);
 
-        return view('singlechannel', ['users' => $channel->users, 'channelname' => $channel->name]);
+        return view('singlechannel', ['users' => $channel->users, 'channelname' => $channel->name, 'tags' => $channel->tags]);
     }
 
 

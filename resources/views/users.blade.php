@@ -17,7 +17,7 @@
                     @foreach($users as $user)
                         <div class="single-row">
                             <div>{{$user['id']}}</div>
-                            <div><a href="{{url('/getUserChannels')}}/{{$user['id']}}">{{$user['name']}}</a></div>
+                            <div><a href="{{url('/getUserInfo')}}/{{$user['id']}}">{{$user['name']}}</a></div>
                         </div>
                     @endforeach
                 </div>
