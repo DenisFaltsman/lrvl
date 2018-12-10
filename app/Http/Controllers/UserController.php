@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserController
@@ -82,7 +83,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $name;
         $user->email = $email;
-        $user->password = md5(self::DEFAULT_PASSWORD);
+        $user->password = Hash::make(self::DEFAULT_PASSWORD);
 
         $user->save();
 
