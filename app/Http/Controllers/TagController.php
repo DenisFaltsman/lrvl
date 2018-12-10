@@ -95,18 +95,23 @@ class TagController extends Controller
 
         $tagId   = (int) $request->id;
         $channelId = (int) $request->channel;
-        $userId    = Auth::id();
 
-        echo 'Tag id: ' . $tagId . ' Channel Id: ' . $channelId;
+        /** @var Channel $channel */
+        $channel = Channel::find($channelId);
+
+        /** @var User $user */
+        $user = User::find(Auth::id());
+
+        /** @var Tag $tag */
+        $tag = Tag::find($tagId);
 
 
+        $user->tags()->detach($tagId);
+        //$user->channels()->detach($channelId);
 
-        exit;
-
-
-//        return view('messages',
-//            ['message' => 'Tag ' . $tagName . ' for channel ' . $channel->name . ' has been created.']
-//        );
+        return view('messages',
+            ['message' => 'Tag ' . $tag->name  . ' for channel ' . $channel->name .  ' for user '  . $user->name . ' has been delete.']
+        );
     }
 
 
