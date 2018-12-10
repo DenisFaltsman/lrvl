@@ -8,8 +8,21 @@
                     <div class="card-header">Dashboard</div>
                     @include('menu')
 
-                <h6>Single User ({{$username}}) Channels</h6>
+                <h6>Single tag ({{$tagname}})</h6>
                 <div class="table-wrap">
+                    <table class="channels-list">
+                        <tr>
+                            <td>Id</td>
+                            <td>User Name</td>
+                        </tr>
+                        @foreach($users as $user)
+                            <tr>
+                                <td>{{$user['id']}}</td>
+                                <td>{{$user['name']}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <hr>
                     <table class="channels-list">
                         <tr>
                             <td>Id</td>
@@ -18,20 +31,7 @@
                         @foreach($channels as $channel)
                             <tr>
                                 <td>{{$channel['id']}}</td>
-                                <td>{{$channel['name']}} <a href="leftChannelAction/{{$channel['id']}}">Left?</a></td>
-                            </tr>
-                        @endforeach
-                    </table>
-                    <hr>
-                    <table class="tags-list">
-                        <tr>
-                            <td>Id</td>
-                            <td>Tag Name</td>
-                        </tr>
-                        @foreach($tags as $tag)
-                            <tr>
-                                <td>{{$tag['id']}}</td>
-                                <td>{{$tag['name']}} <a href="removeTag/{{$tag['id']}}">Remove?</a></td>
+                                <td>{{$channel['name']}}</td>
                             </tr>
                         @endforeach
                     </table>

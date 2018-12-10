@@ -15,12 +15,31 @@ use Illuminate\Support\Facades\Auth;
 class TagController extends Controller
 {
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function createTag()
+    {
+        return view('createtag', ['channels' => Channel::all()]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function tags()
+    {
+        return view('tags', ['tags' => Tag::all()]);
+    }
+
+    /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function createTag(Request $request)
+    public function getTagInfo(Request $request)
     {
-        return view('createtag', ['channels' => Channel::all()]);
+        /** @var Tag $tag */
+        $tag = Tag::find((int) $request->id);
+
+        return view('singletag', ['channels' => $tag->channels, 'tagname' => $tag->name, 'users' => $tag->users]);
     }
 
     /**

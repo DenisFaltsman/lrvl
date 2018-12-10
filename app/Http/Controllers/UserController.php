@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +55,20 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = User::find(Auth::id());
+
+        $entities = [];
+
+        /** @var Tag $tag */
+        foreach ($user->tags as $key => $tag) {
+            $entities[$key]['tag'] = $tag->id;
+            /** @var Channel $channel */
+            foreach ($tag->channels as $channel) {
+                $entities[$key]['channel'] = $channel->id;
+            }
+        }
+
+        dd($entities);
+
 
         return view('profile', ['channels' => $user->channels, 'tags' => $user->tags, 'username' => $user->name]);
     }
