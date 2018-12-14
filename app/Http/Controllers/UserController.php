@@ -58,7 +58,6 @@ class UserController extends Controller
 
         $tags = [];
 
-        /** @var Tag $tag */
         foreach ($user->tags as $key => $tag) {
             $tags[$key]['tag_id'] = $tag->id;
             $tags[$key]['tag_name'] = $tag->name;

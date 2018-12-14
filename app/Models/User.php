@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Class User
  * @package App\Models
+ * @property Tag[] $tags
  */
 class User extends Authenticatable
 {

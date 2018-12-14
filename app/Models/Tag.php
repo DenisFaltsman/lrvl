@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Tag
  * @package App\Models
+ * @property int $id
+ * @property string $name
  */
 class Tag extends Model
 {
